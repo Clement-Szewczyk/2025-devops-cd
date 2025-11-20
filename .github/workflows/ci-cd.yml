@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/javaapp
-
 jobs:
   # Job pour tous les push: tests, build Docker, build documentation
   test-and-build:
@@ -72,8 +69,13 @@ jobs:
         tags: ${{ secrets.DOCKER_IMAGE_NAME }}:main
         cache-from: type=gha
         cache-to: type=gha,mode=max
-
-
+    
+    - name: Deploy to Render
+      uses: givemomentum/render-deploy@v1.5.1
+      with:
+        service_id: ${{ secrets.RENDER_SERVICE_ID }}
+        api_key: ${{ secrets.RENDER_API_KEY }}
+       
       
     
   
