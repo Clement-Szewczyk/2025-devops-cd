@@ -76,6 +76,18 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
             -H "Content-Type: application/json" \
             ${{ secrets.RENDER_SERVICE_ID }}
+
+    - name: JAVA DOC build
+      run: ./mvnw javadoc:javadoc 
+
+    - name: Deplay Javadoc to Netlify
+      uses: nwtgck/actions-netlify@v1.2.3
+      with:
+        publish-dir: ./target/site/apidocs
+        production-deploy: true
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
        
       
 
