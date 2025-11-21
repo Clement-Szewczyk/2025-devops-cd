@@ -1,5 +1,7 @@
 # Hello!! This is a spring boot app!
 
+![CI/CD Pipeline](https://github.com/Clement-Szewczyk/2025-devops-cd/workflows/CI%2FCD%20Pipeline/badge.svg?branch=main)
+
 This app is simple. It connects to a postgres database and says if the database works.
 
 Requirements:
