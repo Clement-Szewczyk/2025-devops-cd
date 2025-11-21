@@ -77,18 +77,19 @@ jobs:
             -H "Content-Type: application/json" \
             ${{ secrets.RENDER_SERVICE_ID }}
 
+    - name: Install Netlify CLI
+      run: npm install netlify-cli -g
+
+
     - name: JAVA DOC build
       run: ./mvnw javadoc:javadoc 
 
-    - name: Deplay Javadoc to Netlify
-      uses: nwtgck/actions-netlify@v1.2.3
-      with:
-        publish-dir: ./target/site/apidocs
-        production-deploy: true
-      env:
-        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-       
+    - name: Deploy to Netlify in production
+      run: |
+        netlify deploy --prod \
+          --dir target/site/apidocs/apidocs \
+          --auth ${{secrets.NETLIFY_AUTH_TOKEN}} \
+          --site ${{secrets.NETLIFY_SITE_ID}}
       
 
 
